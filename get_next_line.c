@@ -1,31 +1,40 @@
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/06 21:07:35 by jlima-so          #+#    #+#             */
+/*   Updated: 2025/04/07 08:24:31 by jlima-so         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-char *get_next_line(int fd);
-int ft_check(char *str);
-char *ft_strcpy(char *dest, char *src);
-char *ft_strcat(char *dest, char *src);
-char *ft_strjoin(char *s1, char *s2);
-int ft_remain(char *keep);
-char **ft_split_once(char *str, int size);
-int ft_checkend(char *str);
- 
-unsigned int ft_strlen(char *s)
+#include "get_next_line.h"
+
+char	*ft_strdup(char *str)
 {
-	int ind;
-	
-	ind = 0;
-	while(s[ind])
-		ind++;
-	return(ind);
+	char *ret;
+
+	ret = malloc(ft_strlen(str) + 1);
+	ret = ft_strcpy(ret ,str);
+	return (ret);
 }
 
-char *ft_strcpy(char *dest, char *src)
+unsigned int	ft_strlen(char *s)
 {
-	int ind;
-	
+	int	ind;
+
+	ind = 0;
+	while (s[ind])
+		ind++;
+	return (ind);
+}
+
+char	*ft_strcpy(char *dest, char *src)
+{
+	int	ind;
+
 	ind = 0;
 	while (src[ind] != '\0')
 	{
@@ -36,161 +45,94 @@ char *ft_strcpy(char *dest, char *src)
 	return (dest);
 }
 
-char* ft_strcat(char *dest, char *src)
+char	*ft_strcat(char *dest, char *src)
 {
-	int ind;
-	int ind2;
+	int	ind;
+	int	ind2;
 
 	ind = 0;
 	ind2 = ft_strlen(dest);
-	while(src[ind] != '\0')
-		dest[ind2++] = src[ind++];
+	while (src[ind] != '\0')
+	{
+		dest[ind2] = src[ind];
+		ind++;
+		ind2++;
+	}
 	dest[ind2] = '\0';
-	return(dest);
+	return (dest);
 }
 
-int main(void)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int i;
-	char* ol;
-	
-	i = open("teste.txt", O_CREAT | O_RDWR, 00700);
+	int		total;
+	char	*dest;
 
-	ol = get_next_line(i);
-	printf("%s",ol);
-	free(ol);
-	ol = get_next_line(i);
-	printf("%s",ol);
-	free(ol);
-	ol = get_next_line(i);
-	printf("%s",ol);
-	free(ol);
-	ol = get_next_line(i);
-	printf("%s",ol);
-	free(ol);
-	ol = get_next_line(i);
-	printf("%s",ol);
-	free(ol);
-	ol = get_next_line(i);
-	printf("%s",ol);
-	free(ol);
-	ol = get_next_line(i);
-	printf("%s",ol);
-	free(ol);
-	ol = get_next_line(i);
-	printf("%s",ol);
-	free(ol);
-	ol = get_next_line(i);
-	printf("%s",ol);
-	free(ol);
-	ol = get_next_line(i);
-	printf("%s",ol);
-	free(ol);ol = get_next_line(i);
-	printf("%s",ol);
+	if ((char *)s1 == NULL && (char *)s2 == NULL)
+		return (NULL);
+	if (s1 == NULL)
+		return (ft_strdup((char *)s2));
+	if (s2 == NULL)
+		return (ft_strdup((char *)s1));
+	total = ft_strlen((char *)s1) + ft_strlen((char *)s2);
+	dest = malloc(total + 1);
+	if (dest == NULL)
+		return (NULL);
+	dest = ft_strcpy(dest, (char *)s1);
+	free ((char *)s1);
+	dest = ft_strcat(dest, (char *)s2);
+	return (dest);
 }
 
-char *get_next_line(int fd)
+char	*next_line(char *str)
 {
-	static int i = -2;
-	char* hold;
-	char* keep;
-	char** temp;
-	static char* sta;
+	char *ret;
+	int len;
 
-	keep = (char*)malloc(BUFFER_SIZE + 1);
-	hold = (char*)malloc(BUFFER_SIZE + 1);
-	if(sta != NULL)
+	while (*str && *str != '\n')
+		str++;
+	if (*str == '\n')
+		str++;
+	len = ft_strlen(str);
+	if (len == 0)
+		return (NULL);
+	ret = malloc(len + 1);
+	ret = ft_strdup(str);
+	return (ret);
+}
+
+int check (char *str)
+{
+	while (*str)
 	{
-		keep = ft_strcpy(keep, sta);
+		if (*str == '\n')
+			return (0);
+		str++;
 	}
-	if (i != -2);
-		//free(sta);
-	while(ft_check(hold) == 0 && i != 0)
-	{
-		i = read(fd, hold, BUFFER_SIZE);
-		keep = ft_strjoin(keep, hold);
-	}
-	if(ft_check(keep) == 0 && i == 0)
-	{
-		free(hold);
-		free(keep);
-		return(0);
-	}
-	temp = ft_split_once(keep, ft_strlen(keep));
-	sta = (char*)malloc(ft_strlen(temp[1]));
-	sta = ft_strcpy(sta, temp[1]);
-	keep = (char*)malloc(ft_strlen(temp[0]));
-	keep = ft_strcpy(keep, temp[0]);
-	/*
-	free(hold);
-	free(temp[0]);
-	free(temp[1]);
-	free(temp);
-	*/
-	return(keep);
+	return (1);
 }
 
-int ft_check(char *str)
+char	*get_next_line(int fd)
 {
-	int ind;
+	static char		*keep;
+	char		*ret;
+	int 		i;
 
-	ind = 0;
-	while(str[ind])
+	i = 1;
+	ret = NULL;
+	if (keep == NULL)
 	{
-		if(str[ind] == '\n')
-			return (1);
-		ind++;
+		keep = malloc(BUFFER_SIZE + 1);
+		i = read (fd, keep, BUFFER_SIZE);
+		ret = ft_strjoin(ret, keep);
+		if (i == 0 && *ret == 0)
+			return (NULL);
 	}
-	return(0);
-}
-
-int ft_remain(char *keep)
-{
-	int ind;
-
-	ind = 0;
-	while(keep[ind] != '\n')
-		ind++;
-	if(keep[ind + 1] == '\0')
-		return(0);
-	return(1);
-}
-
-char **ft_split_once(char *str, int size)
-{
-	int count;
-	int ind;
-	char **ret;
-
-	ret = (char**)malloc(2 * sizeof(char*));
-	ind = -1;
-	count = 0;
-	while(str[count] != '\n')
-		count++;
-	ret[0] = (char*)malloc(count);
-	ret[1] = (char*)malloc(size - count + 1);
-	count = 0;
-	while(str[ind++] != '\n')
-		ret[0][ind] = str[ind];
-	while(str[ind])
+	else
+		keep = next_line(keep);
+	while (check(ret) && i != 0)
 	{
-		ret[1][count] = str[ind];
-		count++;
-		ind++;
+		i = read (fd, keep, BUFFER_SIZE);
+		ret = ft_strjoin(ret, keep);
 	}
-	//free(str);
-	return(ret);
-}
-
-char *ft_strjoin(char *s1, char *s2)
-{
-	int total;
-	char *dest;
-
-	total = ft_strlen((char*)s1) + ft_strlen((char*)s2);
-	dest = malloc((total + 1) * sizeof(char));
-	ft_strcpy(dest, (char*)s1);
-	ft_strcat(dest, (char*)s2);
-	//free(s1);
-	return(dest);
+	return (ret);
 }
