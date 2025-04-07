@@ -9,8 +9,8 @@
 char	*get_next_line(int fd);
 void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_strcpy(char *dest, char *src);
-char	*ft_strcat(char *dest, char *src);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strcat_to_line(char *dest, char *src);
+char	*ft_strjoin(char *s1, char *s2);
 int		ft_remain(char *keep);
 char	**ft_split_once(char *str, int size);
 int		check(char *str);
