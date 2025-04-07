@@ -5,126 +5,74 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/06 21:07:35 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/04/07 11:01:14 by jlima-so         ###   ########.fr       */
+/*   Created: 2025/04/07 16:13:13 by jlima-so          #+#    #+#             */
+/*   Updated: 2025/04/07 21:16:25 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strdup(char *str)
+void	next_lines(char *ret)
 {
-	char *ret;
+	int	ind;
+	int	add;
 
-	ret = malloc(ft_strlen(str) + 1);
-	ret = ft_strcpy(ret, str);
-	return (ret);
+	add = ft_strlen(ret);
+	ind = 0;
+	while (ret[ind + add] && ret[ind])
+	{
+		ret[ind] = ret[ind + add];
+		ind++;
+	}
+	if (ret[ind + add] == '\0')
+		ret[ind] = '\0';
 }
 
-unsigned int	ft_strlen(char *s)
+int	ft_strlen(char *str)
 {
 	int	ind;
 
 	ind = 0;
-	while (s[ind])
+	while (str[ind])
+	{
 		ind++;
+		if(str[ind - 1] == '\n')
+			break;
+	}
 	return (ind);
 }
 
-char	*ft_strcpy(char *dest, char *src)
-{
-	int	ind;
-
-	ind = 0;
-	while (src[ind] != '\0')
-	{
-		dest[ind] = src[ind];
-		ind++;
-	}
-	dest[ind] = '\0';
-	return (dest);
-}
-
-char	*ft_strcat_to_line(char *dest, char *src)
-{
-	int	ind;
-	int	ind2;
-
-	ind = 0;
-	ind2 = ft_strlen(dest);
-	while (src[ind] != '\0' && src[ind] != '\n')
-	{
-		dest[ind2] = src[ind];
-		ind++;
-		ind2++;
-	}
-	if (src[ind] == '\0')
-		dest[ind2] = '\0';
-	if (src[ind] == '\n')
-	{
-		dest[ind2] = '\n';
-		dest[ind2 + 1] = '\0';
-	}
-	return (dest);
-}
-
-// char	*ft_strcat(char *dest, char *src)
-// {
-// 	int	ind;
-// 	int	ind2;
-
-// 	ind = 0;
-// 	ind2 = ft_strlen(dest);
-// 	while (src[ind] != '\0')
-// 	{
-// 		dest[ind2] = src[ind];
-// 		ind++;
-// 		ind2++;
-// 	}
-// 	dest[ind2] = '\0';
-// 	return (dest);
-// }
-
 char	*ft_strjoin(char *s1, char *s2)
 {
-	char	*dest;
+	char	*ret;
+	int		ind;
 
-	if (s1 == NULL && s2 == NULL)
-		return (NULL);
 	if (s1 == NULL)
-		return (ft_strdup(s2));
-	if (s2 == NULL)
-		return (ft_strdup(s1));
-	dest = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (dest == NULL)
-		return (NULL);
-	dest = ft_strcpy(dest, s1);
-	free (s1);
-	dest = ft_strcat_to_line(dest, s2);
-	return (dest);
-}
-
-char	*next_line(char *str)
-{
-	char *ret;
-	int len;
-
-	while (*str && *str != '\n')
-		str++;
-	if (*str == '\n')
 	{
-		str++;
-		len = ft_strlen(str);
-		if (len == 0)
-			return (NULL);
-		ret = malloc(len + 1);
-		ret = ft_strdup(str);
-		return (ret);
+		s1 = malloc (1);
+		s1[0] = '\0';	
 	}
-	return (NULL);
+	ret = malloc (ft_strlen(s1) + ft_strlen(s2) + 1);
+	ind = 0;
+	while (s1[ind])
+	{
+		ret[ind] = s1[ind];
+		ind++;
+	}
+	free (s1);
+	while (*s2)
+	{
+		ret[ind] = *(s2);
+		ind++;
+		s2++;
+		if(*(s2 - 1) == '\n')
+			break;
+	}
+	ret[ind] = '\0';
+	return (ret);
 }
 
-int check (char *str)
+int		check(char *str)
 {
 	while (*str)
 	{
@@ -135,37 +83,26 @@ int check (char *str)
 	return (1);
 }
 
-char	*get_next_line(int fd)
+char *get_next_line(int fd)
 {
-	static char	*keep;
+	static char	keep[BUFFER_SIZE + 1];
 	char		*ret;
-	int 		i;
-
-	i = 1;
+	int			i;
+	
 	ret = NULL;
-	if (keep == NULL)
+	i = 1;
+	if (*keep == '\0')
 	{
-		keep = malloc(BUFFER_SIZE + 1);
 		i = read (fd, keep, BUFFER_SIZE);
-		ret = ft_strjoin(ret, keep);
-		if (i == 0 && *ret == 0)
+		if (i == 0)
 			return (NULL);
 	}
-	else
-	{
-		keep = next_line(keep);
-		if (keep != NULL)
-			ret = ft_strjoin(ret, keep);
-		else
-		{
-			keep = malloc(BUFFER_SIZE + 1);
-			i = read (fd, keep, BUFFER_SIZE);
-		}
-	}
-	while (check(ret) && i != 0)
+	ret = ft_strjoin(NULL, keep);
+	while (i != 0 && check(ret))
 	{
 		i = read (fd, keep, BUFFER_SIZE);
 		ret = ft_strjoin(ret, keep);
 	}
+		next_lines(keep);
 	return (ret);
-}
+} 
