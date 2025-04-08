@@ -1,74 +1,90 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   get_next_line_utils.c                              :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2025/04/07 14:18:56 by jlima-so          #+#    #+#             */
-// /*   Updated: 2025/04/07 15:33:51 by jlima-so         ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/08 10:00:20 by jlima-so          #+#    #+#             */
+/*   Updated: 2025/04/08 10:00:44 by jlima-so         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// #include "get_next_line.h"
+#include "get_next_line"
 
-// unsigned int	ft_strlen(char *s)
-// {
-// 	int	ind;
+void	next_lines(char *ret)
+{
+	int	ind;
+	int	add;
 
-// 	ind = 0;
-// 	while (s[ind])
-// 		ind++;
-// 	return (ind);
-// }
+	add = ft_strlen(ret);
+	ind = 0;
+	while (ret[ind + add] && ret[ind])
+	{
+		ret[ind] = ret[ind + add];
+		ind++;
+	}
+	if (ret[ind + add] == '\0')
+		ret[ind] = '\0';
+}
 
-// char	*ft_strcpy(char *dest, char *src)
-// {
-// 	int	ind;
+int	ft_strlen(char *str)
+{
+	int	ind;
 
-// 	ind = 0;
-// 	while (src[ind] != '\0')
-// 	{
-// 		dest[ind] = src[ind];
-// 		ind++;
-// 	}
-// 	dest[ind] = '\0';
-// 	return (dest);
-// }
+	ind = 0;
+	while (str[ind])
+	{
+		ind++;
+		if (str[ind - 1] == '\n')
+			return (ind);
+	}
+	return (ind);
+}
 
-// char	*ft_strcpy_to_line(char *dest, char *src)
-// {
-// 	int	ind;
+char	*ft_strjoin(char *s1, char *s2)
+{
+	char	*ret;
+	int		ind;
 
-// 	ind = 0;
-// 	while (src[ind] != '\0' && src[ind - 1] != '\n')
-// 	{
-// 		dest[ind] = src[ind];
-// 		ind++;
-// 	}
-// 	dest[ind] = '\0';
-// 	return (dest);
-// }
+	if (s1 == NULL)
+	{
+		s1 = malloc (1);
+		s1[0] = '\0';	
+	}
+	ret = malloc (ft_strlen(s1) + ft_strlen(s2) + 1);
+	ind = 0;
+	while (s1[ind])
+	{
+		ret[ind] = s1[ind];
+		ind++;
+	}
+	free (s1);
+	while (*s2)
+	{
+		ret[ind] = *(s2);
+		ind++;
+		s2++;
+		if(*(s2 - 1) == '\n')
+			break;
+	}
+	ret[ind] = '\0';
+	return (ret);
+}
 
-// char	*ft_strcat_to_line(char *dest, char *src)
-// {
-// 	int	ind;
-// 	int	ind2;
+int		check(char *str)
+{
+	while (*str)
+	{
+		if (*str == '\n')
+			return (0);
+		str++;
+	}
+	return (1);
+}
 
-// 	ind = 0;
-// 	ind2 = ft_strlen(dest);
-// 	while (src[ind] != '\0' && src[ind] != '\n')
-// 	{
-// 		dest[ind2] = src[ind];
-// 		ind++;
-// 		ind2++;
-// 	}
-// 	if (src[ind] == '\n')
-// 	{
-// 		dest[ind2] = '\n';
-// 		dest[ind2 + 1] = '\0';
-// 	}
-// 	else
-// 		dest[ind2] = '\0';
-// 	return (dest);
-// }
+void	ft_bzero(void *s, size_t n)
+{
+	while (n-- > 0)
+		((char *)s)[n] = 0;
+}

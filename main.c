@@ -57,16 +57,21 @@ int main(void)
 	printf("NEXT LINE IS:%s", ret);
 	if (ret != NULL)
 		free (ret);
+		
+
 	ret = get_next_line(i);
 	printf("NEXT LINE IS:%s", ret);
 	if (ret != NULL)
 		free (ret);
+
 	ret = get_next_line(i);
 	printf("NEXT LINE IS:%s", ret);
 	if (ret != NULL)
 		free (ret);
+
 	ret = get_next_line(i);
 	printf("NEXT LINE IS:%s", ret);
 	if (ret != NULL)
 		free (ret);
+
 }
