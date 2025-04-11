@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:13:13 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/04/09 18:04:20 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/04/11 21:03:55 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_next_line(int fd)
 	char		*ret;
 	int			i;
 
-	if (read(fd, &i, 0) == -1)
+	if (read(fd, &i, 0) == -1 || BUFFER_SIZE < 0)
 		return (NULL);
 	i = 1;
 	if (*keep == '\0')

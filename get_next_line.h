@@ -6,16 +6,17 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 14:29:33 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/04/09 18:00:45 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/04/11 21:00:36 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 10000
 # endif
 
+# include <limits.h> 
 # include <fcntl.h> 
 # include <unistd.h>
 # include <stdlib.h>
