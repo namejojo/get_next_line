@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:13:13 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/04/11 21:03:55 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/04/11 21:04:50 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,3 +41,4 @@ char	*get_next_line(int fd)
 	next_lines(keep);
 	return (ret);
 }
+ccf -D BUFFER_SIZE=48649567892 get_next_line.c get_next_line_utils.c main.c && ./a.out
