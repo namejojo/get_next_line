@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:13:13 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/04/12 12:27:00 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/04/12 14:26:24 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 char	*get_next_line(int fd)
 {
-	static char	keep[(unsigned int)BUFFER_SIZE + 1];
+	static char	keep[(int)BUFFER_SIZE + 1];
 	char		*ret;
 	int			i;
 
-	if (read(fd, &i, 0) == -1)
+	if (read(fd, &i, 0) == -1 || BUFFER_SIZE <= 0)
 		return (NULL);
 	i = 1;
 	if (*keep == '\0')
