@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:13:13 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/04/11 21:04:50 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/04/12 12:18:51 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 char	*get_next_line(int fd)
 {
-	static char	keep[BUFFER_SIZE + 1];
+	static char	keep[(unsigned int)BUFFER_SIZE + 1];
 	char		*ret;
 	int			i;
 
-	if (read(fd, &i, 0) == -1 || BUFFER_SIZE < 0)
+	if (read(fd, &i, 0) == -1)
 		return (NULL);
 	i = 1;
 	if (*keep == '\0')
@@ -41,4 +41,3 @@ char	*get_next_line(int fd)
 	next_lines(keep);
 	return (ret);
 }
-ccf -D BUFFER_SIZE=48649567892 get_next_line.c get_next_line_utils.c main.c && ./a.out
