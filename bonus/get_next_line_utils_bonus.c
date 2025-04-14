@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/08 10:00:20 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/04/14 09:22:55 by jlima-so         ###   ########.fr       */
+/*   Created: 2025/04/14 10:42:14 by jlima-so          #+#    #+#             */
+/*   Updated: 2025/04/14 10:42:34 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	next_lines(char *ret)
 {
