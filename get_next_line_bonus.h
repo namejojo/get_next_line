@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 09:20:52 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/04/14 10:45:01 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/04/30 13:11:40 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 char	*get_next_line(int fd);
 char	*ft_strjoin(char *s1, char *s2);
+int		zero_read(int fd, char *keep);
 void	next_lines(char *ret);
 int		ft_strlen(char *str);
 int		check(char *str);

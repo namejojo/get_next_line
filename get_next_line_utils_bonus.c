@@ -6,11 +6,21 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:42:14 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/04/14 10:42:34 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/04/30 13:11:29 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
+
+int	zero_read(int fd, char *keep)
+{
+	int ind;
+
+	ind = read(fd, keep, BUFFER_SIZE);
+	if (ind >= 0)
+		keep[ind] = '\0';
+	return (ind);
+}
 
 void	next_lines(char *ret)
 {
