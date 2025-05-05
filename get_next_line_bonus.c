@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 09:20:43 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/04/30 13:11:13 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/05 18:45:58 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*get_next_line(int fd)
 	char		*ret;
 	int			i;
 
+	if (fd > FOPEN_MAX)
+		return (NULL);
 	if (BUFFER_SIZE <= 0)
 		return (NULL);
 	i = 1;

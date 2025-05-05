@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:42:14 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/04/30 13:11:29 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/05 16:46:06 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	zero_read(int fd, char *keep)
 {
-	int ind;
+	int	ind;
 
 	ind = read(fd, keep, BUFFER_SIZE);
 	if (ind >= 0)

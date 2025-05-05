@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/07 16:13:13 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/04/14 10:43:30 by jlima-so         ###   ########.fr       */
+/*   Created: 2025/04/14 09:20:43 by jlima-so          #+#    #+#             */
+/*   Updated: 2025/05/05 18:46:23 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,27 @@
 
 char	*get_next_line(int fd)
 {
-	static char	keep[(int)BUFFER_SIZE + 1];
+	static char	keep[FOPEN_MAX][BUFFER_SIZE + 1];
 	char		*ret;
 	int			i;
 
-	if (read(fd, &i, 0) == -1 || BUFFER_SIZE <= 0)
+	if (fd > FOPEN_MAX)
+		return (NULL);
+	if (BUFFER_SIZE <= 0)
 		return (NULL);
 	i = 1;
-	if (*keep == '\0')
-	{
-		i = read (fd, keep, BUFFER_SIZE);
-		((char *)keep)[i] = '\0';
-	}
-	if (i < 1 && (*keep == '\0' || !check(keep)))
+	if (*keep[fd] == '\0')
+		i = zero_read(fd, keep[fd]);
+	if (i < 1 && (*keep[fd] == '\0' || !check(keep[fd])))
 		return (NULL);
-	ret = ft_strjoin(NULL, keep);
+	ret = ft_strjoin(NULL, keep[fd]);
 	while (i && check(ret))
 	{
-		i = read (fd, keep, BUFFER_SIZE);
-		((char *)keep)[i] = '\0';
+		i = zero_read(fd, keep[fd]);
 		if (i < 1)
 			break ;
-		ret = ft_strjoin(ret, keep);
+		ret = ft_strjoin(ret, keep[fd]);
 	}
-	next_lines(keep);
+	next_lines(keep[fd]);
 	return (ret);
 }
