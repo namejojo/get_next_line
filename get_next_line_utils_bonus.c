@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:42:14 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/05 16:46:06 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/06 12:40:17 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ char	*ft_strjoin(char *s1, char *s2)
 		s1[0] = '\0';
 	}
 	ret = malloc (ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (ret == NULL)
+		return (free (s1), NULL);
 	ind = -1;
 	while (s1[++ind])
 		ret[ind] = s1[ind];
