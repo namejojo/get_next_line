@@ -15,29 +15,20 @@ int main(void)
     //         if (ret != NULL)
     //                 free (ret);
     // } while (ret != NULL);
-	ret = get_next_line(i);
+	ret = get_next_line(-10);
 	printf("%s", ret);
 	if (ret != NULL)
-		free (ret);
-
-	 ret = get_next_line(i2);
-	 printf("%s", ret);
-	 if (ret != NULL)
-	     free (ret);
-
-	ret = get_next_line(i);
-	printf("%s", ret);
-	if (ret != NULL)
-		free (ret);
+	    free (ret);
 
 	ret = get_next_line(i2);
 	printf("%s", ret);
 	if (ret != NULL)
-		free (ret);
+	    free (ret);
 
-	ret = get_next_line(10);
+
+	ret = get_next_line(i);
 	printf("%s", ret);
 	if (ret != NULL)
 		free (ret);
-
+		
 }
