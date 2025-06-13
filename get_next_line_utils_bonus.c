@@ -6,11 +6,11 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:42:14 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/06 12:40:17 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/06/12 12:35:10 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "../libft.h"
 
 int	zero_read(int fd, char *keep)
 {
@@ -27,7 +27,7 @@ void	next_lines(char *ret)
 	int	ind;
 	int	add;
 
-	add = ft_strlen(ret);
+	add = ft_gnl_strlen(ret);
 	ind = 0;
 	while (ret[ind + add] && ret[ind])
 	{
@@ -38,7 +38,7 @@ void	next_lines(char *ret)
 		ret[ind] = '\0';
 }
 
-int	ft_strlen(char *str)
+int	ft_gnl_strlen(char *str)
 {
 	int	ind;
 
@@ -52,7 +52,7 @@ int	ft_strlen(char *str)
 	return (ind);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_gln_strjoin(char *s1, char *s2)
 {
 	char	*ret;
 	int		ind;
@@ -62,7 +62,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		s1 = malloc (1);
 		s1[0] = '\0';
 	}
-	ret = malloc (ft_strlen(s1) + ft_strlen(s2) + 1);
+	ret = malloc (ft_gnl_strlen(s1) + ft_gnl_strlen(s2) + 1);
 	if (ret == NULL)
 		return (free (s1), NULL);
 	ind = -1;
